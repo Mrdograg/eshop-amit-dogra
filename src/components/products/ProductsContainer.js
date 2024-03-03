@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import NavigationBar from "../../NavigationBar";
 import {
   FormControl,
@@ -10,13 +10,35 @@ import {
   ToggleButtonGroup,
 } from "@mui/material";
 import ProductCard from "../productCard/ProductCard";
-import { itemsList } from "../../mock";
+import { itemsList } from "../../common/mock";
+import axios from "axios";
+import { AuthContext } from "../../common/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function ProductsContainer() {
+  const { authToken } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [category, setCategory] = useState("all");
   const [sortBy, setSortBy] = useState("default");
   const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState(itemsList);
+
+  useEffect(() => {
+    if (authToken !== null) {
+      axios
+        .get("http://localhost:8080/api/products", {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    } else {
+      navigate("/login");
+    }
+  }, [authToken, navigate]);
 
   const handleCategoryChange = (event, newCategory) => {
     const newData =
@@ -26,9 +48,7 @@ function ProductsContainer() {
     setCategory(newCategory);
     setData(newData);
   };
-
   const handleSortChange = (event) => setSortBy(event.target.value);
-
   const handleSearchChange = (event) => {
     setTimeout(() => {
       const newData = itemsList.filter((item) =>
@@ -38,10 +58,10 @@ function ProductsContainer() {
       setSearchTerm(event.target.value);
     }, 800);
   };
-
   return (
     <>
       <NavigationBar
+        isLogged={authToken !== null}
         searchTerm={searchTerm}
         onSearchChange={handleSearchChange}
       />
@@ -67,7 +87,6 @@ function ProductsContainer() {
             <ToggleButton value="personal-care">PERSONAL CARE</ToggleButton>
           </ToggleButtonGroup>
         </div>
-
         <div>
           <FormControl style={{ minWidth: 150, maxWidth: 250 }}>
             <InputLabel id="sort-select-label">Sort By</InputLabel>
@@ -85,7 +104,6 @@ function ProductsContainer() {
             </Select>
           </FormControl>
         </div>
-
         <Grid container spacing={5} style={{ margin: "10px 0" }}>
           {data.map((item) => (
             <ProductCard key={item.id} productData={item} />

@@ -1,32 +1,30 @@
 import { Avatar, Button, TextField } from "@mui/material";
 import NavigationBar from "../../NavigationBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LockIcon from "@mui/icons-material/Lock";
+import axios from "axios";
 
 function Signup() {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [contactNumber, setContactNumber] = useState("");
-
   const [firstNameError, setFirstNameError] = useState(false);
   const [lastNameError, setLastNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [contactNumberError, setContactNumberError] = useState(false);
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
     setFirstNameError(false);
     setLastNameError(false);
     setEmailError(false);
     setPasswordError(false);
     setContactNumberError(false);
-
     if (firstName === "") {
       setFirstName(true);
     }
@@ -43,8 +41,23 @@ function Signup() {
       setContactNumberError(true);
     }
 
-    if (firstName && lastName && email && password) {
+    if (firstName && lastName && email && password && contactNumber) {
       console.log(firstName, lastName, email, password);
+      axios
+        .post("http://localhost:3001/api/auth/signup", {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+          contactNumber: contactNumber,
+        })
+        .then(function (response) {
+          console.log(response.data);
+          navigate("/login");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   };
 
@@ -155,5 +168,4 @@ function Signup() {
     </>
   );
 }
-
 export default Signup;
