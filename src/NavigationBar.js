@@ -8,13 +8,12 @@ import { Button, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SearchInput from ".//components/search/SearchInput";
 
-
 function NavigationBar(props) {
-  const { isLogged, isAdmin } = props;
+  const { isLogged, isAdmin, searchTerm, onSearchChange } = props;
   const navigate = useNavigate();
 
   return (
-      <AppBar position="static" className="app-primary-color">
+    <AppBar position="static" className="app-primary-color">
       <Toolbar>
         <Grid container spacing={2}>
           <Grid item xs={5}>
@@ -31,7 +30,10 @@ function NavigationBar(props) {
             </IconButton>
           </Grid>
           <Grid item xs={3}>
-            <SearchInput />
+          <SearchInput
+              searchText={searchTerm}
+              onSearchChange={onSearchChange}
+            />
           </Grid>
           <Grid item xs={4} textAlign={"right"}>
             {isLogged ? (
