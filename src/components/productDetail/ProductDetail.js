@@ -22,10 +22,10 @@ function ProductDetail() {
   useEffect(() => {
     if (id) {
       const item = itemsList.find((item) => String(item.id) === id);
-      console.log("Entered", item);
-      setProduct(item);
-    }
-  }, [id]);
+      setProduct(item); } else {
+        navigate("/login");
+      }
+  }, [id, authToken, navigate]);
 
   return authToken ? (
     <div>

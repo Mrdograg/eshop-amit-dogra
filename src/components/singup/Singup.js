@@ -38,11 +38,10 @@ function Signup() {
       setPasswordError(true);
     }
     if (contactNumber === "") {
-      setContactNumberError(true);
+    setContactNumberError(true);
     }
 
     if (firstName && lastName && email && password && contactNumber) {
-      console.log(firstName, lastName, email, password);
       axios
         .post("http://localhost:3001/api/auth/signup", {
           firstName: firstName,

@@ -26,13 +26,15 @@ function ProductsContainer() {
   useEffect(() => {
     if (authToken !== null) {
       axios
-        .get("http://localhost:8080/api/products", {
+        .get("http://localhost:3001/api/products", {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
         })
         .then((response) => {
-          console.log(response.data);
+          if (response.data.length > 0) {
+            setData(response.data.length);
+          }
         })
         .catch((error) => console.error("Error fetching data:", error));
     } else {
