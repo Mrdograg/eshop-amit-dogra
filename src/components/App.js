@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./login/Login.";
-import Signup from "./singup/Singup";
+import Signup from "./signup/Signup";
 import { ThemeProvider, createTheme } from "@mui/material";
 import ProductsContainer from "./products/ProductsContainer";
 import { AuthContextProvider } from "../common/AuthContext";
