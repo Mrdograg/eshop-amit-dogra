@@ -31,7 +31,7 @@ function Login() {
 
     if (email && password) {
       axios
-      .post("http://localhost:3001/api/auth/signin", {
+      .post("http://localhost:3001/api/v1/auth/signIn", {
         username: email,
         password: password,
       })
