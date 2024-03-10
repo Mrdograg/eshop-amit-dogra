@@ -37,7 +37,7 @@ function AddEditProduct() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/products/categories", {
+      .get("http://localhost:3001/api/v1/products/categories", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -55,7 +55,7 @@ function AddEditProduct() {
     if (isEditMode) {
       setDataLoading(true);
       axios
-        .get(`http://localhost:3001/api/products/${id}`, {
+        .get(`http://localhost:3001/api/v1/products/${id}`, {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
@@ -103,7 +103,7 @@ function AddEditProduct() {
       if (isEditMode) {
         axios
           .put(
-            `http://localhost:3001/api/products/${id}`,
+            `http://localhost:3001/api/v1/products/${id}`,
             {
               name: name,
               category: category.value,
@@ -129,7 +129,7 @@ function AddEditProduct() {
       } else {
         axios
           .post(
-            "http://localhost:3001/api/products",
+            "http://localhost:3001/api/v1/products",
             {
               name: name,
               category: category.value,

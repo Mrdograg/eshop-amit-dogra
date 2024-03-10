@@ -29,7 +29,7 @@ function ProductsContainer() {
   const triggerDataFetch = () => {
     if (authToken !== null) {
       axios
-      .get("http://localhost:3001/api/products/categories", {
+      .get("http://localhost:3001/api/v1/products/categories", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -41,7 +41,7 @@ function ProductsContainer() {
         alert("Error: There was an issue in retrieving categories list.");
       });
       axios
-        .get("http://localhost:3001/api/products", {
+        .get("http://localhost:3001/api/v1/products", {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
@@ -99,7 +99,7 @@ function ProductsContainer() {
   const handleDeleteCall = (id) => {
     if (window.confirm("Are you sure you want to delete the product?")) {
       axios
-        .delete(`http://localhost:3001/api/products/${id}`, {
+        .delete(`http://localhost:3001/api/v1/products/${id}`, {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },

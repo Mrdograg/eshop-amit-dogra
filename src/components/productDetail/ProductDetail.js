@@ -23,7 +23,7 @@ function ProductDetail() {
   useEffect(() => {
     if (authToken !== null) {
       axios
-        .get("http://localhost:3001/api/products/categories", {
+        .get("http://localhost:3001/api/v1/products/categories", {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
@@ -35,7 +35,7 @@ function ProductDetail() {
           alert("Error: There was an issue in retrieving categories list.");
         });
       axios
-        .get(`http://localhost:3001/api/products/${id}`, {
+        .get(`http://localhost:3001/api/v1/products/${id}`, {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },

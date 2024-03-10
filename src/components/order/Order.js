@@ -45,7 +45,7 @@ function Order() {
   if (activeStep === steps.length - 1) {
       axios
         .post(
-          `http://localhost:3001/api/orders`,
+          `http://localhost:3001/api/v1/orders`,
           {
             quantity: state.quantity,
             user: userId ?? "64982c40668e1d1dc3ed0ace",
@@ -115,7 +115,7 @@ function Order() {
         user: userId ?? "64982c40668e1d1dc3ed0ace",
       };
       axios
-        .post(`http://localhost:3001/api/addresses`, addressObj, {
+        .post(`http://localhost:3001/api/v1/addresses`, addressObj, {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
@@ -123,7 +123,7 @@ function Order() {
         .then(() => {
           alert("Success: Address is successfully saved.");
           axios
-            .get(`http://localhost:8080/api/addresses`, {
+            .get(`http://localhost:3001/api/v1/addresses`, {
               headers: {
                 Authorization: `Bearer ${authToken}`,
               },
@@ -146,7 +146,7 @@ function Order() {
   useEffect(() => {
     if (authToken !== null) {
       axios
-        .get(`http://localhost:3001/api/addresses`, {
+        .get(`http://localhost:3001/api/v1/addresses`, {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
